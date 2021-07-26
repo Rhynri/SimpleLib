@@ -41,3 +41,19 @@ Compile the program with the library:
 ```
 clang++ main.cpp fiblib.so -o main
 ```
+
+# Running the program
+
+The program takes a single command line argument which determines what fibonacci number is printed. The program has several failure cases:
+
+- Argument is not passed, or too many arguments are passed
+- Argument could not be converted into a base 10 integer
+- Argument is out of range (1 - 92)
+
+In case of failure, the program will return `EXIT_FAILURE` (1) as the return code. It will also print a message telling you why it was rejected.
+
+If all these are passed it will print out the fibonacci number at the given input and return `EXIT_SUCCESS` (0). For example:
+```
+main 42
+> 267914296
+```

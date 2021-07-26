@@ -19,6 +19,7 @@ int main(int argc, char *argv[]) {
 
     if (input < 1 || input > 92) {
         std::cout << "Input is out of range.";
+        return EXIT_FAILURE;
     }
 
     std::cout << FibLib::get(input);

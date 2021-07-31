@@ -1,15 +1,13 @@
 # escape=`
 # ^^ set different escape char since Windows uses `\` a lot
 
-
 #################################################################
 #                    * Topas Test DockerFile *                  #
 # ------------------------------------------------------------- #
 # Authors: David Leek                                           #
 # Notes  : Dockerfile for Build 'n Run of Topaz Labs' Test Repo #
+# Usage  : See README.md                                        #
 #################################################################
-
-
 
 FROM mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-ltsc2019
 # Set Specific versioning in the file so you don't have unexpected changes

@@ -42,7 +42,7 @@ stages:
         displayName: 'Copy x64 Artifacts'
         inputs:
           SourceFolder: '$(Build.SourcesDirectory)'
-          Contents: '**\main*'
+          Contents: '**\main.exe'
           TargetFolder: '$(Build.ArtifactStagingDirectory)'
           CleanTargetFolder: true
           OverWrite: true

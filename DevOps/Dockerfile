@@ -15,7 +15,7 @@ FROM mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-ltsc2019
 # Set Specific versioning in the file so you don't have unexpected changes
 # e.g. - microsoft/mindowsservercore might get a random version
 
-LABEL maintainer="leek.programming@gmail.com"
+LABEL maintainer="rhynri@me.com"
 
 # Vars
 ENV BUILD_PATH "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools"

@@ -1,0 +1,56 @@
+#             * Azure DevOps Topaz Packaging Pipeline *             #
+# ----------------------------------------------------------------- #
+# Authors: David Leek        									                     	#
+# Notes  : Mock Azure DevOps Pipeline for Topaz Test                #
+#####################################################################
+
+variables:
+  version: 1.0.0
+  configuration: Release
+  isPullRequest: ${{ eq(variables['Build.Reason'], 'PullRequest')}}
+  env_name: test
+
+name: Topaz_$(SourceBranchName)_$(version)_$(env_name).$(Build.BuildId)
+
+pool:
+  vmImage: 'windows-2019'
+
+trigger:
+- master
+
+stages:
+  - stage: Compile_Cpp
+    displayName: Compile C++ Code
+    jobs:
+    - job: x64_Compile
+      displayName: Compile Topaz x64 C++
+      steps:
+      
+  # Build C++
+  # if you had a .sln file, you could use an MSBuild task for this
+  # you could also make a batch file and run it instead of an inline
+  # 
+  # No need for vcvars here since the CLI is a VS Dev one by default
+      - script: |
+          cl /c /EHsc fiblib.cpp
+          lib fiblib.obj
+          cl /EHsc main.cpp fiblib.lib
+        displayName: Compilation 
+        
+  # Copy to output folder - this allows you to clean up files
+      - task: CopyFiles@2
+        displayName: 'Copy x64 Artifacts'
+        inputs:
+          SourceFolder: '$(Build.SourcesDirectory)'
+          Contents: '**\main*'
+          TargetFolder: '$(Build.ArtifactStagingDirectory)'
+          CleanTargetFolder: true
+          OverWrite: true
+          
+  # Publish to Artifactory
+      - task: PublishBuildArtifacts@1
+        displayName: Publish C++ x64 Artifacts
+        inputs:
+          PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+          ArtifactName: 'test'
+          publishLocation: 'Container'
